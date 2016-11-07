@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const state = {
 	user:{},
 	city:{},
-	productdetail:{}
+	productdetail:{},
+	footerButtonList:{}
 }
 
 const mutations = {
@@ -18,13 +19,17 @@ const mutations = {
 	},
 	UPDATEPRODUCT(state,param){
 		state.productdetail = param;
+	},
+	UPDATEFOOTERBUTTON(state,param){
+		state.footerButtonList = param;
 	}
 }
 
 const getters = {
 	getUser:state => {return state.user},
 	getCity:state => {return state.city},
-	getProduct:state => {return state.productdetail}
+	getProduct:state => {return state.productdetail},
+	getFooterButton:state => {return state.footerButtonList}
 }
 export default new Vuex.Store({state,getters,mutations});
 

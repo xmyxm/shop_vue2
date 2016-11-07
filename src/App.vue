@@ -6,7 +6,7 @@
             <template v-for="(item,index) in itemlist" >
             <li v-bind:data-index="index" v-bind:data-url="item.url" v-on:click="clickitem">
                 <span v-bind:class="['span-icon-box',item.className]"></span>
-                <span v-text="item.name" v-bind:class="item.fontColor"></span>
+                <span v-text="item.name" v-bind:class="item.select ? 'font-green':''"></span>
             </li>
           </template>
         </ul>
@@ -15,21 +15,17 @@
 </template>
 
 <script>
+import { mapGetters,mapActions} from 'vuex'
 
 export default {
-  data () {
-    return {
-      itemlist: [{name:'首页',className:'icon-house-c',fontColor:'font-green',url:'/home',select:true},
-      {name:'分类',className:'icon-sort',fontColor:'',url:'/sort',select:false},
-      {name:'购物车',className:'icon-car',fontColor:'',url:'/cart',select:false},
-      {name:'我的',className:'icon-user',fontColor:'',url:'/user',select:false}]
-    }
-  },
+  computed: mapGetters({
+    itemlist: 'getFooterButton'
+  }),
   methods:{
       clickitem:function(e){
         var itemindex = e.currentTarget.getAttribute("data-index");
         var itemurl = e.currentTarget.getAttribute("data-url");
-        var itemdata = this.itemlist[itemindex];
+        /*var itemdata = this.itemlist[itemindex];
         if(itemdata.select){
            return;
         }
@@ -45,7 +41,7 @@ export default {
                 this.itemlist[i].select = false;
              }
            }
-        }
+        }*/
         this.$router.push({ path: itemurl });
     }
   },

@@ -32,10 +32,12 @@ Vue.use(VueResource)
 const routes = [
   {
     path: '/',
+    name:'/',
     component: Home
   },
   {
     path: '/home',
+    name:'home',
     component: Home
   },
   {
@@ -45,14 +47,17 @@ const routes = [
   },
   {
     path: '/sort',
+    name:'sort',
     component: Sort
   },
   {
     path: '/cart',
+    name:'cart',
     component: Cart
   },
   {
     path: '/user',
+    name:'user',
     component: User
   },
   {
@@ -78,13 +83,42 @@ const router  = new VueRouter({
 });
 
 
+//按钮默认数据
+var btnArray = [{name:'首页',className:'icon-house',url:'/home',select:false},
+  {name:'分类',className:'icon-sort',url:'/sort',select:false},
+  {name:'购物车',className:'icon-car',url:'/cart',select:false},
+  {name:'我的',className:'icon-user',url:'/user',select:false}];
+//初始化默认数据
+store.commit('UPDATEFOOTERBUTTON',btnArray);
+
+//高亮按钮
+const btnHighlight = function(to){
+ var _btnArray = store.getters.getFooterButton;
+  var pagemark="";
+  switch(to.name){
+    case '/': pagemark ='home';break;
+    case 'home': pagemark ='home';break;
+    case 'sort': pagemark ='sort';break;
+    case 'car': pagemark ='car';break;
+    case 'user': pagemark ='user';break;
+  }
+  if(pagemark){
+        _btnArray.forEach(function(item,index){
+          if(item.url.indexOf(pagemark)>-1){
+            item.select = true;
+            item.className = item.className.replace(/-c$/,'') + '-c';
+          }else{
+            item.select = false;
+            item.className = item.className.replace(/-c$/,'');
+          }
+        })
+      store.commit('UPDATEFOOTERBUTTON', _btnArray);
+  }
+}
 //开启路由
 //router.start(App,'#app')
-
 router.beforeEach((to, from, next) => {
-	//console.log(to);
-	//console.log(from);
-	//console.log(next);
+  btnHighlight(to);
   if(/(cart|user)/.test(to.path)){
       const user = store.getters.getUser;
       if (user && user.id >0) {
