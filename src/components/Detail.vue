@@ -125,13 +125,16 @@ export default {
   overflow: hidden;
 }
 .detail-imgbox{
+  padding: 0px;
+  margin:0px; 
   list-style: none;
   position: relative;
 }
 .detail-imgbox li{
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  width:100%;
+}
+.detail-imgbox li img{
+  width:100%;
 }
 .detail-buy .buy-count{
   height:30px;
