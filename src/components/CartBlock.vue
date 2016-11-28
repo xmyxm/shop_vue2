@@ -6,7 +6,7 @@
 		<div class="cart-box-list">
 			<div>
          		<div class="cart-box-check-wrap">
-         			<i class="checked" data-groupid="1"></i> VV超市在线商家
+         			<i v-on:click="selectAll" v-bind:class="{'checked':isALL,'unchecked':!isALL}" data-groupid="1"></i> VV超市在线商家
          		</div>
 			</div>
 			<div v-for="(item,index) in productlist" class="cart-box-item">
@@ -40,6 +40,7 @@ import uinum from '../ui-components/ui-detail-num'
 export default {
   data () {
     return {
+    	isALL:true,
 		productlist:[{title:'阳光味道 四川蒲江红心猕猴桃奇异果 20-24粒原箱装 约2kg 自营水果',
 		src:'http://img10.360buyimg.com/n7/jfs/t3256/198/656686649/396841/1e0467fb/57bd05daN2a40ca1d.jpg!q70.jpg',favourablePrice:28.6,count:1,originalPrice:35.7,checked:true},
                      {title:'展卉 泰国进口 椰青4个装 约750g/个 自营水果',
@@ -53,6 +54,18 @@ export default {
 			var itemindex = e.currentTarget.getAttribute("data-index");
 			var itemdata = this.productlist[itemindex];
 			itemdata.checked = !itemdata.checked;
+			var array = this.productlist.filter(function(item,index){return item.checked == true;});
+			if(array.length == this.productlist.length){
+				this.isALL = true;
+			}else if(array.length == 0){
+ 				this.isALL = false;
+			}
+      },
+      selectAll:function(e){
+      	//var status = this.productlist.some(function(item,index){return item.checked});
+      	let status = !this.isALL;
+		this.productlist.forEach(function(item,index){item.checked = status;});
+		this.isALL= status;
       }
   }
 }
@@ -118,6 +131,8 @@ export default {
 	vertical-align: middle;
 	margin-left:10px;
 	margin-right:10px;
+	border: 1px solid #51f1a0;
+	border-radius: 12px;
 }
 
 .cart-box-img{

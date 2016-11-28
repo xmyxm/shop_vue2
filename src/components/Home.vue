@@ -244,15 +244,14 @@ position:relative;
 }
 
 .home-product-addCart{
-    display:inline-block;
-    width:24px;
-    height:24px;
-    background:url(../assets/addCart.svg) no-repeat center;
-    position:absolute;
-    bottom:0px;
-      position: absolute;
-      right: 10px;
-        background-size: 24px;
+  display:inline-block;
+  width:24px;
+  height:24px;
+  background:url(../assets/addCart.svg) no-repeat center;
+  position:absolute;
+  bottom:0px;
+  right: 15px;
+  background-size: 24px;
 }
 
 .home-product-option{

@@ -76,7 +76,7 @@ const routes = [
 
 //实例化路由对象
 const router  = new VueRouter({
-	base: '/admin/',
+	base: '/shop/', //改变域名后的根路径
 	mode: 'history',
 	linkActiveClass: 'is-active',
 	routes
@@ -99,7 +99,7 @@ const btnHighlight = function(to){
     case '/': pagemark ='home';break;
     case 'home': pagemark ='home';break;
     case 'sort': pagemark ='sort';break;
-    case 'car': pagemark ='car';break;
+    case 'cart': pagemark ='car';break;
     case 'user': pagemark ='user';break;
   }
   if(pagemark){
