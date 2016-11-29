@@ -20,8 +20,8 @@ import {mapMutations} from 'vuex'
 export default {
   data () {
     return {
-      name:'',
-      psd:''
+      name:'123456',
+      psd:'123456'
     }
   },
   methods:{

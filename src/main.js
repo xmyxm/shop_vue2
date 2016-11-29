@@ -86,7 +86,7 @@ const router  = new VueRouter({
 //按钮默认数据
 var btnArray = [{name:'首页',className:'icon-house',url:'/home',select:false},
   {name:'分类',className:'icon-sort',url:'/sort',select:false},
-  {name:'购物车',className:'icon-car',url:'/cart',select:false},
+  {name:'购物车',className:'icon-car',url:'/cart',select:false,productNum:0},
   {name:'我的',className:'icon-user',url:'/user',select:false}];
 //初始化默认数据
 store.commit('UPDATEFOOTERBUTTON',btnArray);

@@ -5,6 +5,7 @@
         <ul class="box-menu">
             <template v-for="(item,index) in itemlist" >
             <li v-bind:data-index="index" v-bind:data-url="item.url" v-on:click="clickitem">
+                <span v-if="item.productNum" class="product-num-icon">{{item.productNum}}</span>
                 <span v-bind:class="['span-icon-box',item.className]"></span>
                 <span v-text="item.name" v-bind:class="item.select ? 'font-green':''"></span>
             </li>
@@ -25,23 +26,6 @@ export default {
       clickitem:function(e){
         var itemindex = e.currentTarget.getAttribute("data-index");
         var itemurl = e.currentTarget.getAttribute("data-url");
-        /*var itemdata = this.itemlist[itemindex];
-        if(itemdata.select){
-           return;
-        }
-        for(let i in this.itemlist){
-           if(itemindex == i){
-              itemdata.className += "-c";
-              itemdata.fontColor = "font-green";
-              itemdata.select = true;
-           }else{
-             if(this.itemlist[i].select){
-                this.itemlist[i].className = this.itemlist[i].className.replace(/-c$/,'');
-                this.itemlist[i].fontColor = "";
-                this.itemlist[i].select = false;
-             }
-           }
-        }*/
         this.$router.push({ path: itemurl });
     }
   },
@@ -121,6 +105,7 @@ body a {
 .box-menu li{
   display:inline;
   list-style-type:none;
+  position: relative;
 }
 
 .box-menu li span{
@@ -164,5 +149,15 @@ body a {
 .icon-user-c{
   background:url(./assets/user-c.svg) no-repeat center;
 }
-
+.product-num-icon{
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background: red;
+    border-radius: 10px;
+    font-size: 12px;
+    height: 12px;
+    padding: 2px 4px;
+}
 </style>

@@ -24,7 +24,7 @@
                     <div class="home-product-option">
                         <span class="home-product-price">￥{{item.favorable_price}}</span>
                         <del>￥{{item.price}}</del>
-                        <span class="home-product-addCart"></span>
+                        <span class="home-product-addCart" v-on:click="clickcart"></span>
                     </div>
                 </div>
             </li>
@@ -35,7 +35,7 @@
 
 <script>
 import HeaderBlock from './HeaderBlock'
-import {mapMutations} from 'vuex'
+import {mapMutations,mapGetters} from 'vuex'
 export default {
   data () {
     return {
@@ -54,8 +54,11 @@ export default {
       ]
     }
   },
+   computed: mapGetters({
+    footerButtonList:'getFooterButton'
+  }),
   methods:{
-     ...mapMutations(['UPDATEUSER','UPDATECITY','UPDATEPRODUCT']),
+     ...mapMutations(['UPDATEUSER','UPDATECITY','UPDATEPRODUCT','UPDATEFOOTERBUTTON']),
      setProduct(id){
           var product = {
           "321251":{
@@ -133,7 +136,6 @@ export default {
         this.UPDATECITY(_city) 
      },
      clickitem(e){
-        console.log('测试');
         this.upsity()
         var _id = e.currentTarget.getAttribute("data-id");
         if(_id){
@@ -141,6 +143,19 @@ export default {
         }
 
         this.$router.push({ name: 'detail', params: { id: _id}});
+     }
+     ,clickcart(e){
+        e.stopPropagation();
+        this.footerButtonList.forEach(function(item,index){
+          if(item.name == "购物车"){
+            if(item.productNum && item.productNum > 0){
+              item.productNum += 1;
+            }else{
+              item.productNum = 1;
+            }
+          }
+        });
+        this.UPDATEFOOTERBUTTON(this.footerButtonList);
      }
   },
   components: { HeaderBlock}
@@ -199,6 +214,7 @@ h1 {
   margin:0px auto;
   border-radius:20px;
   background-size: 48px 48px;
+  cursor: pointer;
 }
 .home-product-box{
 margin:10px;
@@ -208,6 +224,7 @@ background-color:white;
 display:flex;
 border-bottom:1px solid #ddd;
 padding: 2px 0px;
+cursor: pointer;
 }
 
 .home-box-product-img{
